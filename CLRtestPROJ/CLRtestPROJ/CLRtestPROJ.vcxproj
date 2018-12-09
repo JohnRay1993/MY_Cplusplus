@@ -114,8 +114,7 @@
     </ClCompile>
     <Link>
       <AdditionalDependencies />
-      <SubSystem>
-      </SubSystem>
+      <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>Main</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>

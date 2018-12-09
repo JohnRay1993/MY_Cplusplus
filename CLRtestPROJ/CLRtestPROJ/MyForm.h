@@ -11,6 +11,8 @@ namespace CLRtestPROJ {
 
 	using namespace System::IO;
 
+	using namespace System::Threading;
+
 	cTimer ctimer;
 
 	/// <summary>
@@ -19,7 +21,11 @@ namespace CLRtestPROJ {
 	public ref class MyForm : public System::Windows::Forms::Form
 	{
 		int fileCounter = 0;
-	private: System::Windows::Forms::PictureBox^  pictureBox2;
+	private: System::Windows::Forms::Timer^  timer1;
+	private: System::Windows::Forms::Timer^  timer2;
+
+
+
 			 int last_Y = 5;
 
 	public:
@@ -49,15 +55,16 @@ namespace CLRtestPROJ {
 	private: System::Windows::Forms::FolderBrowserDialog^  folderBrowserDialog1;
 	private: System::Windows::Forms::TextBox^  textBox2;
 	private: System::Windows::Forms::ListBox^  listBox1;
-	private: System::Windows::Forms::PictureBox^  pictureBox1;
+
 	private: System::Windows::Forms::Panel^  panel1;
+	private: System::ComponentModel::IContainer^  components;
 
 
 	private:
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
-		System::ComponentModel::Container ^components;
+
 
 #pragma region Windows Form Designer generated code
 		/// <summary>
@@ -66,18 +73,15 @@ namespace CLRtestPROJ {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^  resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			this->components = (gcnew System::ComponentModel::Container());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->folderBrowserDialog1 = (gcnew System::Windows::Forms::FolderBrowserDialog());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->listBox1 = (gcnew System::Windows::Forms::ListBox());
-			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
-			this->pictureBox2 = (gcnew System::Windows::Forms::PictureBox());
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			this->panel1->SuspendLayout();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->BeginInit();
+			this->timer1 = (gcnew System::Windows::Forms::Timer(this->components));
+			this->timer2 = (gcnew System::Windows::Forms::Timer(this->components));
 			this->SuspendLayout();
 			// 
 			// textBox1
@@ -117,23 +121,13 @@ namespace CLRtestPROJ {
 			// 
 			this->listBox1->FormattingEnabled = true;
 			this->listBox1->ItemHeight = 20;
-			this->listBox1->Location = System::Drawing::Point(18, 58);
+			this->listBox1->Location = System::Drawing::Point(283, 198);
 			this->listBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->listBox1->Name = L"listBox1";
-			this->listBox1->Size = System::Drawing::Size(948, 564);
+			this->listBox1->Size = System::Drawing::Size(683, 424);
 			this->listBox1->TabIndex = 3;
+			this->listBox1->Visible = false;
 			this->listBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::listBox1_SelectedIndexChanged);
-			// 
-			// pictureBox1
-			// 
-			this->pictureBox1->Location = System::Drawing::Point(486, 383);
-			this->pictureBox1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
-			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(546, 322);
-			this->pictureBox1->TabIndex = 4;
-			this->pictureBox1->TabStop = false;
-			this->pictureBox1->WaitOnLoad = true;
-			this->pictureBox1->Click += gcnew System::EventHandler(this, &MyForm::pictureBox1_Click);
 			// 
 			// panel1
 			// 
@@ -141,24 +135,24 @@ namespace CLRtestPROJ {
 				| System::Windows::Forms::AnchorStyles::Left)
 				| System::Windows::Forms::AnchorStyles::Right));
 			this->panel1->AutoScroll = true;
-			this->panel1->Controls->Add(this->pictureBox2);
-			this->panel1->Location = System::Drawing::Point(18, 58);
+			this->panel1->Location = System::Drawing::Point(1013, 147);
 			this->panel1->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->panel1->Name = L"panel1";
 			this->panel1->Size = System::Drawing::Size(1014, 646);
 			this->panel1->TabIndex = 5;
+			this->panel1->Visible = false;
+			this->panel1->SizeChanged += gcnew System::EventHandler(this, &MyForm::panel1_SizeChanged);
 			// 
-			// pictureBox2
+			// timer1
 			// 
-			this->pictureBox2->BackColor = System::Drawing::SystemColors::ButtonFace;
-			this->pictureBox2->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox2.Image")));
-			this->pictureBox2->Location = System::Drawing::Point(588, 160);
-			this->pictureBox2->Name = L"pictureBox2";
-			this->pictureBox2->Size = System::Drawing::Size(360, 317);
-			this->pictureBox2->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
-			this->pictureBox2->TabIndex = 0;
-			this->pictureBox2->TabStop = false;
-			this->pictureBox2->Visible = false;
+			this->timer1->Enabled = true;
+			this->timer1->Interval = 1;
+			this->timer1->Tick += gcnew System::EventHandler(this, &MyForm::timer1_Tick);
+			// 
+			// timer2
+			// 
+			this->timer2->Interval = 1;
+			this->timer2->Tick += gcnew System::EventHandler(this, &MyForm::timer2_Tick);
 			// 
 			// MyForm
 			// 
@@ -166,7 +160,6 @@ namespace CLRtestPROJ {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(1050, 723);
 			this->Controls->Add(this->panel1);
-			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->listBox1);
 			this->Controls->Add(this->textBox2);
 			this->Controls->Add(this->button1);
@@ -174,15 +167,53 @@ namespace CLRtestPROJ {
 			this->Margin = System::Windows::Forms::Padding(4, 5, 4, 5);
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			this->panel1->ResumeLayout(false);
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox2))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
 #pragma endregion
+
+	private:
+		static Queue^ Files = gcnew Queue();
+		static String^ path;
+		Thread^ SearchThread = gcnew Thread(gcnew ParameterizedThreadStart(Searcher));
+		static DateTime start, stop;
+		static String^ asd = "";
+
+	private: static void Searcher(Object^ path)
+	{
+		WIN32_FIND_DATA fd;
+		HANDLE hFind = FindFirstFile(CString(path + "/*.*"), &fd);
+
+		if (hFind != INVALID_HANDLE_VALUE) {
+			do {
+				if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+				{
+					String^ temp_s = gcnew String(fd.cFileName);
+
+					if (temp_s->Split('.')[0] != temp_s)
+						//if (temp_s->Split('.')[temp_s->Split('.')->Length - 1] == "png" && temp_s->Split('.')[0] != "")
+						{
+							//Files->Enqueue(path + "\\" + temp_s);
+							asd += path + "\\" + temp_s + "\r\n";
+						}
+				}
+				else
+				{
+					String^ temp_s = gcnew String(fd.cFileName);
+					if (temp_s[0] != '.')
+						Searcher(path + "\\" + gcnew String(fd.cFileName));
+				}
+			} while (::FindNextFile(hFind, &fd));
+			::FindClose(hFind);
+		}
+		stop = DateTime::Now;
+	}
+
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e) {
+		listBox1->Items->Add("");
+		if (SearchThread->ThreadState != ThreadState::Stopped && SearchThread->ThreadState != ThreadState::Unstarted)
+			SearchThread->Suspend();
 		if (folderBrowserDialog1->ShowDialog() == System::Windows::Forms::DialogResult::OK)
 		{
 			ctimer.start_timer();
@@ -194,54 +225,31 @@ namespace CLRtestPROJ {
 			fileCounter = 0;
 			panel1->Controls->Clear();
 			last_Y = 5;
-			FileFinder(textBox1->Text);
 
+			Files->Clear();
 
+			SearchThread = gcnew Thread(gcnew ParameterizedThreadStart(Searcher));
+			SearchThread->Start(textBox1->Text);
 
-
-
-
-			//array<String^>^ files = Directory::GetFiles(textBox1->Text, "*.*", System::IO::SearchOption::AllDirectories);
-			//for (int i = 0; i < files->Length; i++)
-				//textBox2->AppendText(files[i] + "\r\n");
-			//textBox2->AppendText(files->Length.ToString() + " " + ctimer.elapsed_time().ToString());
-
-					   			 
-
-
-			/*
-			System::String ^str = "Hello World";
-
-			IntPtr ptr = System::Runtime::InteropServices::Marshal::StringToHGlobalAnsi(str);
-
-			HANDLE hFind = FindFirstFile((LPCSTR)ptr.ToPointer(), data);
-
-			System::Runtime::InteropServices::Marshal::FreeHGlobal(ptr);
-			*/
+			start = DateTime::Now;
 		}
+		//Files->Enqueue("string " + fileCounter++);
+
+		
+
+
 	}
-	private: System::Void FileFinder(String^ path)
+	private:  void FileFinder(String^ path)
 	{
 		WIN32_FIND_DATA fd;
 		HANDLE hFind = FindFirstFile(CString(path + "/*.*"), &fd);
 
 		if (hFind != INVALID_HANDLE_VALUE) {
 			do {
-				// read all (real) files in current folder
-				// , delete '!' read other 2 default folder . and ..
-				//if ((fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))//(!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
-				if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))// && fileCounter < 100)
+				if (!(fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
 				{
-					//textBox2->AppendText(gcnew String(fd.cFileName) + "\r\n");
-					
-					//listBox1->Items->Add(gcnew String(fd.cFileName));
-					//names.push_back(fd.cFileName);
-
 					String^ temp_s = gcnew String(fd.cFileName);
 
-					//int l = temp_s->Length;
-					//if (l > 4)
-					//if (temp_s[l - 4] == '.' && temp_s[l - 3] == 'p' && temp_s[l - 2] == 'n' && temp_s[l - 1] == 'g')
 					int asd = temp_s->Split('.')->Length;
 					if (temp_s->Split('.')[0] != temp_s)
 					if (temp_s->Split('.')[temp_s->Split('.')->Length - 1] == "png" && temp_s->Split('.')[0] != "")
@@ -267,10 +275,6 @@ namespace CLRtestPROJ {
 								int r = 50;
 								temp_PB->Size = System::Drawing::Size(temp_PB->Image->Size.Width * diff - r, temp_PB->Image->Size.Height * diff - r);
 								temp_PB->SizeMode = PictureBoxSizeMode::StretchImage;
-
-								//temp_PB->Size.Width = 500;// (double)temp_PB->Size.Width * diff;
-								//temp_PB->Size.Height *= diff;
-
 								temp_PB->Location = System::Drawing::Point(0, last_Y);
 							}
 							else
@@ -325,7 +329,7 @@ namespace CLRtestPROJ {
 
 		listBox1->Items->Clear();
 		FileFinder(textBox1->Text);*/
-		pictureBox1->Load(listBox1->Text);
+		//pictureBox1->Load(listBox1->Text);
 		//pictureBox1->Image->FromFile("F:\\SECH\\GitHub\\Animation\\Assets\\ְספאכüע.jpg");
 		//pictureBox1->Load("F:\\SECH\\GitHub\\Animation\\Assets\\ְספאכüע.jpg");
 	}
@@ -333,6 +337,82 @@ private: System::Void pictureBox1_Click(System::Object^  sender, System::EventAr
 	//pictureBox1->Image = gcnew PictureBox::Image("");
 	//pictureBox1->Image->FromFile()
 		//(cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
+}
+private: System::Void timer1_Tick(System::Object^  sender, System::EventArgs^  e) {
+	//if (SearchThread->ThreadState != ThreadState::Stopped && SearchThread->ThreadState != ThreadState::Unstarted)
+		//time++;
+	//listBox1->Items->Clear();
+	//listBox1->Items->Add(asd);
+	textBox2->Text = asd;
+	this->Text = Files->Count.ToString() + " " + SearchThread->ThreadState.ToString() + " " + (stop - start);
+
+
+
+
+}
+private: System::Void timer2_Tick(System::Object^  sender, System::EventArgs^  e) {
+	if (Files->Count > 0)
+	{
+		PictureBox^ temp_PB = gcnew PictureBox();
+		try
+		{
+			temp_PB->Load(Files->Dequeue()->ToString());
+			//temp_PB->Image->FromFile(path + "\\" + temp_s);
+		}
+		catch (const System::ArgumentException^ ae) //const std::exception&)
+		{
+
+		}
+		if (temp_PB->Image != nullptr && temp_PB->Image->Size.Height != 0)
+		{
+			temp_PB->Size = temp_PB->Image->Size;
+			if (temp_PB->Image->Size.Width > panel1->Size.Width)
+			{
+				double diff = (double)panel1->Size.Width / (double)temp_PB->Image->Size.Width;
+				//temp_PB->Image
+				int r = 50;
+				temp_PB->Size = System::Drawing::Size(panel1->Size.Width - r, temp_PB->Image->Size.Height * diff - r);
+				temp_PB->SizeMode = PictureBoxSizeMode::StretchImage;
+				temp_PB->Location = System::Drawing::Point(0, last_Y);
+			}
+			else
+			{
+				int center = (panel1->Width - temp_PB->Width) / 2;
+				if (center < 0) center = 0;
+				temp_PB->Location = System::Drawing::Point(center, last_Y);
+			}
+			temp_PB->BackColor = Color::Black;
+
+			//if (temp_PB->Size.Height < 20)
+				//MessageBox::Show("piu");
+
+			last_Y += temp_PB->Size.Height + 5;
+
+			panel1->Controls->Add(temp_PB);
+			//panel1->ScrollControlIntoView(temp_PB);
+		}
+	}
+}
+private: System::Void panel1_SizeChanged(System::Object^  sender, System::EventArgs^  e) {
+	int prev_pos = 5;
+	for each (PictureBox^ im in panel1->Controls)
+	{
+		if (im->Image->Size.Width > panel1->Width)//im->Width + 100 > panel1->Width && 
+		{
+			double diff = (double)panel1->Size.Width / (double)im->Image->Size.Width;
+			//temp_PB->Image
+			int r = 50;
+			im->Size = System::Drawing::Size(panel1->Size.Width - r, im->Image->Size.Height * diff - r);
+			im->Location = System::Drawing::Point(0, prev_pos);
+		}
+		else
+		{
+			int center = (panel1->Width - im->Width) / 2;
+			if (center < 0) center = 0;
+			im->Location = System::Drawing::Point(center, prev_pos);
+		}
+		prev_pos += im->Size.Height + 5;
+	}
 }
 };
 }
