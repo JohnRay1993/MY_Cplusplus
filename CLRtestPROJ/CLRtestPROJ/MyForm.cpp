@@ -1,6 +1,5 @@
-#include <msclr\marshal_cppstd.h>
-#include <iostream>
-#include "Timer.h"
+//#include <msclr\marshal_cppstd.h>
+//#include <iostream>
 #include <atlstr.h>
 #include "MyForm.h"
 
