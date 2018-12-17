@@ -1,0 +1,179 @@
+{
+    "app autostart settings": {
+        "enabled": false,
+        "path": "testpath",
+        "program": "testprogram"
+    },
+    "settings 1": {
+        "checked input device": {
+            "device name": "name",
+            "device number": "None"
+        },
+        "checked output device": {
+            "device name": "None",
+            "device number": "None"
+        },
+        "input device": {
+            "device name": "Off",
+            "device number": "none"
+        },
+        "input priority": [
+            "USB",
+            "none"
+        ],
+        "output device": {
+            "device name": "HDMI",
+            "device number": "0"
+        },
+        "output priority": [
+            "Bluetooth",
+            "HDMI",
+            "analog",
+	    "USB",
+            "none"
+        ],
+        "toolbar icon": true
+    },
+    "settings fyn": {
+        "client connection": {
+            "allow custom brokers": true,
+            "autoconnect": {
+                "desktop": "",
+                "enabled": false
+            },
+            "address": "",
+            "default protocol": "rdp"
+        },
+        "user connection": {
+            "allow manual address entry": true,
+            "autoconnect": {
+                "enabled": false,
+                "group": "",
+                "server": {
+                    "server address": "",
+                    "server name": ""
+                },
+                "type": "group"
+            },
+            "show autodetected": true
+        }
+    },
+    "date time settings": {
+        "ntp enabled": true,
+        "ntp server": "0.debian.pool.ntp.org",
+        "timezone": "Europe"
+    },
+    "display settings": {
+        "video mode": "extend",
+        "primary": {
+            "orientation": "landscape",
+            "resolution": "Automatic"
+        },
+        "screen saver timeout": 0,
+        "secondary": {
+            "orientation": "landscape",
+            "position": "left",
+            "resolution": "Manual"
+        }
+    },
+    "firmware info": {
+        "configuration version": 1,
+        "device family": "ACER",
+        "device model": "ACER model N"
+    },
+    "firmware settings": null,
+    "general settings": {
+        "client mode": "custom",
+        "device name": "name",
+        "setup GUI password enabled": false,
+        "setup GUI password hash": "asdfgsdfgsdfgsdfg"
+    },
+    "keyboard settings": {
+        "layout": "US",
+        "numlock on": false
+    },
+    "main window": {
+        "server history": [
+        ],
+        "custom history": [
+        ],
+        "manual history": [
+        ],
+        "selection": "client desktop"
+    },
+    "management settings": {
+        "autodiscover pmc address": false,
+        "pmc address": "https://1.2.3.5/",
+        "pmc management": true,
+        "vspace console management": false
+    },
+    "network settings": {
+        "DNS": {
+            "dns1": "",
+            "dns2": "",
+            "domain": "",
+            "type": "dhcp"
+        },
+        "interfaces": {
+            "eth": {
+                "IP address": "",
+                "default gateway": "",
+                "enabled": true,
+                "network mask": "",
+                "type": "dhcp"
+            },
+            "wlan": {
+                "IP address": "",
+                "advanced security": "auto",
+                "authentication method": "https",
+                "ca certificate": "",
+                "default gateway": "",
+                "enabled": false,
+                "encryption": "auto",
+                "hidden ssid": false,
+                "network mask": "",
+                "passphrase": "",
+                "pkcs12 certificate": "",
+                "pkcs12 password": "",
+                "security": "personal",
+                "ssid": "TOSHIBA",
+                "type": "dhcp",
+                "user name": "",
+                "user password": ""
+            }
+        },
+        "proxy": {
+            "adress": "",
+            "enabled": false,
+            "no proxy for LAN": false,
+            "password": "",
+            "port": 443,
+            "user name": ""
+        }
+    },
+    "redirection settings": {
+        "HIDs": "native",
+        "audio": "native",
+        "custom devices": [
+        ]
+    },
+    "security settings": {
+        "ca certificates": [
+        ],
+        "client certificates": [
+        ]
+    },
+    "shad settings": {
+        "password": "",
+        "password enabled": false,
+        "shadowing enabled": false,
+        "shadowing mode": "control",
+        "user notification enabled": false
+    },
+    "autologon settings": {
+        "domain": "",
+        "enabled": false,
+        "password": "",
+        "username": ""
+    }, "myAdded": {"param1": "val1"}
+}
